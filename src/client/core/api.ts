@@ -20,6 +20,7 @@ interface IImage {
 }
 
 export default {
+  // @todo logout if unauthorized
   checkStatus(response: any) {
     return response;
     /*if (response.status >= 200 && response.status < 300) {
@@ -39,7 +40,7 @@ export default {
     return response.json();
   },
 
-  call(url: string, data: any = {}, method: any, cb: any) {
+  async call(url: string, data: any = {}, method: any) {
     let token: string | null = null;
     let currentUrl: string = url;
 
@@ -64,71 +65,37 @@ export default {
     } else {
       if (data != null) {
         if (Object.keys(data).length > 0) {
-          currentUrl += +'?' + this.objToQuery(data);
+          currentUrl += `?${this.objToQuery(data)}`;
         }
       }
     }
 
-    fetch(API_URL + currentUrl, headers)
-      .then(this.checkStatus)
-      .then(this.parseJSON)
-      .then((json) => {
-        cb(json);
-      })
-      .catch((ex) => {
-        cb(null, ex);
-      });
+    try {
+      return await fetch(API_URL + currentUrl, headers)
+        .then(this.checkStatus)
+        .then(this.parseJSON);
+    } catch (err) {
+      return Promise.reject(err);
+    }
   },
 
   get(url: string, data?: any) {
-    return new Promise((resolve, reject) => {
-      this.call(url, data, 'GET', (res: any, err: any) => {
-        if (err != null) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    return this.call(url, data, 'GET');
   },
 
   // POST method
   post(url: string, data: any) {
-    return new Promise((resolve, reject) => {
-      this.call(url, data, 'POST', (res: any, err: any) => {
-        if (err != null) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    return this.call(url, data, 'POST');
   },
 
   // PUT method
   put(url: string, data: any) {
-    return new Promise((resolve, reject) => {
-      this.call(url, data, 'PUT', (res: any, err: any) => {
-        if (err != null) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    return this.call(url, data, 'PUT');
   },
 
   // DELETE method
   delete(url: string, data?: any) {
-    return new Promise((resolve, reject) => {
-      this.call(url, data, 'DELETE', (res: any, err: any) => {
-        if (err != null) {
-          reject(err);
-        } else {
-          resolve(res);
-        }
-      });
-    });
+    return this.call(url, data, 'DELETE');
   },
 
   alias(str: string) {
@@ -174,20 +141,20 @@ export default {
     }
 
     const obj = query.replace('?', '').split('&');
-    const test: any = {};
+    const objectKeyVal: any = {};
 
     if (obj.length > 0) {
       obj.map((val: any) => {
         const arr = val.split('=');
         if (arr.length === 2) {
           if (!without || without !== arr[0]) {
-            test[arr[0]] = arr[1];
+            objectKeyVal[arr[0]] = arr[1];
           }
         }
       });
     }
 
-    return test;
+    return objectKeyVal;
   },
 
   removeFromQuery(query: any, name: string | null = null) {
@@ -200,7 +167,7 @@ export default {
     let newUrl = url;
     let newName = name;
 
-    if (isWindow) {
+    if (!isWindow) {
       return '';
     }
 
@@ -211,12 +178,15 @@ export default {
     newName = newName.replace(/[\[\]]/g, '\\$&');
     const regex = new RegExp(`[?&]${newName}(=([^&#]*)|&|#|$)`);
     const results: any = regex.exec(url);
+
     if (!results) {
       return null;
     }
+
     if (!results[2]) {
       return '';
     }
+
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
   },
 

@@ -18,11 +18,13 @@
 * [x] code split*
 * [x] typescript
 * [x] styled-components
+* [ ] styled-components theme
 * [x] react router v4
 * [x] redux + redux-thunk
 * [x] express.js
 * [x] static folder
 * [x] react-helmet
+* [ ] error component
 
 #### Notes
 *before running `npm run build:client`, need to change in tsconfig.json `module: "esnext"`for codesplit

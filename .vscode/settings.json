@@ -1,0 +1,37 @@
+{
+  "editor.snippetSuggestions": "top",
+  "editor.fontSize": 14,
+  "editor.fontWeight": "100",
+  "editor.lineHeight": 22,
+  "editor.tabSize": 2,
+  "editor.minimap.enabled": true,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true
+  },
+  "prettier.bracketSpacing": true,
+  "prettier.printWidth": 140,
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.tabWidth": 2,
+  "prettier.trailingComma": "all",
+  "prettier.useTabs": false,
+  "prettier.arrowParens": "always",
+  "editor.rulers": [
+    140
+  ]
+}

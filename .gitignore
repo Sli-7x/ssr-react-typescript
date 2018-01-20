@@ -1,0 +1,19 @@
+# Node build artifacts
+npm-debug.log
+
+# Folders #
+/dist
+/server
+/node_modules
+server.min.js
+now.json
+
+# Local development
+*.env
+*.dev
+.directory
+.DS_Store
+
+# Docker
+Dockerfile
+docker-compose.yml

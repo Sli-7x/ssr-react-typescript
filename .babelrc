@@ -1,0 +1,7 @@
+{
+  "env": {
+    "production": {
+      "plugins": ["react-loadable/babel", "transform-es2015-modules-commonjs"]
+    }
+  }
+}

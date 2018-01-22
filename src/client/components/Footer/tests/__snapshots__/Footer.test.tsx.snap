@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer.tsx renders correctly 1`] = `
+<div
+  id="footer"
+>
+  <span
+    className="sc-bdVaJa rOCEJ"
+  >
+    © 
+    2018
+  </span>
+</div>
+`;

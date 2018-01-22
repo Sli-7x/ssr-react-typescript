@@ -24,6 +24,7 @@
 * [x] express.js
 * [x] static folder
 * [x] react-helmet
+* [x] tests
 * [ ] error component
 
 #### Notes

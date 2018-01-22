@@ -5,6 +5,7 @@ npm-debug.log
 /dist
 /server
 /node_modules
+/coverage
 server.min.js
 now.json
 

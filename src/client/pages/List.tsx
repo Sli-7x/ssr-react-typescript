@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { fetchFilters } from '../store/filters/actions';
+import { withError } from '../components/Errors/ErrorWrapper';
 
 interface IProps {
   filters: any;
@@ -44,4 +45,4 @@ class List extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state: any) => ({ filters: state.filters.filters });
 
-export default connect(mapStateToProps)(List);
+export default withError(connect(mapStateToProps)(List));

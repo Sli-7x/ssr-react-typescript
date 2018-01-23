@@ -11,8 +11,8 @@
     "server": "export NODE_ENV=production&& nodemon ./src/server/server.ts",
     "clean": "rimraf dist && mkdir dist",
     "tslint": "tslint -c ./tslint.json -p ./tsconfig.json -t stylish",
-    "test": "jest --watch --no-cache",
-    "test:coverage": "jest --coverage"
+    "test": "export NODE_ENV=test&& jest --watch --no-cache",
+    "test:coverage": "export NODE_ENV=test&& jest --coverage"
   },
   "author": "Sli-7x",
   "license": "ISC",
@@ -73,6 +73,7 @@
     "ignore-styles": "^5.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jest": "^22.1.4",
+    "jest-styled-components": "^4.10.0",
     "lru-cache": "^4.1.1",
     "node-sass": "^4.7.2",
     "nodemon": "^1.14.11",
@@ -84,6 +85,7 @@
     "serialize-javascript": "^1.4.0",
     "style-loader": "^0.19.1",
     "styled-components": "^2.4.0",
+    "ts-jest": "^22.0.1",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
     "tslint-config-airbnb": "^5.4.2",
@@ -103,7 +105,7 @@
       "js"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>config/jest/preprocessor.js"
+      "^.+\\.(ts|tsx)$": "ts-jest"
     },
     "testMatch": [
       "**/tests/*.test.(ts|tsx|js)"
@@ -112,11 +114,14 @@
       "<rootDir>config/jest/bootstrap.js"
     ],
     "collectCoverageFrom": [
-      "src/**/*.tsx",
+      "src/client/**/*.tsx",
       "!src/client/index.tsx",
+      "!src/client/routes.tsx",
       "!**/node_modules/**",
       "!**/dist/**"
     ],
+    "collectCoverage": true,
+    "bail": true,
     "moduleNameMapper": {
       "^.+\\.s?css$": "identity-obj-proxy"
     },

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer.tsx should render correctly 1`] = `
+<div
+  id="header"
+>
+  <a
+    href="/"
+    onClick={[Function]}
+  >
+     Home 
+  </a>
+  <a
+    href="/about"
+    onClick={[Function]}
+  >
+     About 
+  </a>
+  <a
+    href="/product"
+    onClick={[Function]}
+  >
+     Product 
+  </a>
+</div>
+`;

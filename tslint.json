@@ -19,6 +19,8 @@
       }
     ],
     "newline-before-return": false,
+    "no-console": [true, "log", "error"],
+    "no-empty": false,
     "no-any": false,
     "no-boolean-literal-compare": true,
     "no-empty-interface": false,

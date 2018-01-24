@@ -24,7 +24,7 @@
     "**/bower_components": true
   },
   "prettier.bracketSpacing": true,
-  "prettier.printWidth": 140,
+  "prettier.printWidth": 120,
   "prettier.semi": true,
   "prettier.singleQuote": true,
   "prettier.tabWidth": 2,
@@ -32,6 +32,6 @@
   "prettier.useTabs": false,
   "prettier.arrowParens": "always",
   "editor.rulers": [
-    140
+    120
   ]
 }

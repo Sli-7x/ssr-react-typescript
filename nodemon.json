@@ -1,6 +1,6 @@
 {
-    "watch": ["src/server/*"],
-    "ext": "ts tsx",
-    "ignore": ["src/**/*.spec.tsx"],
-    "exec": "ts-node ./src/server/server.ts"
-  }
+  "watch": ["src/server/*.tsx", "src/server/*.ts"],
+  "ext": "ts tsx",
+  "ignore": ["src/**/*.spec.tsx"],
+  "exec": "ts-node src/server/server.ts"
+}

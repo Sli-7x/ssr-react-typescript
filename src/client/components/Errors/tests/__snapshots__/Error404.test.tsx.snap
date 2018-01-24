@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error404.tsx should render correctly 1`] = `
+<h1>
+  Sorry, can’t find that. 404
+</h1>
+`;

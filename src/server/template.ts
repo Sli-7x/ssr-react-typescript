@@ -5,6 +5,7 @@ interface IInfo {
   data?: any;
   bundles?: any[];
   helmet?: any;
+  styles?: string;
 }
 
 declare global {
@@ -13,7 +14,7 @@ declare global {
   }
 }
 
-export default ({ content, data, bundles = [], helmet }: IInfo) => {
+export default ({ content, data, bundles = [], helmet, styles = '' }: IInfo) => {
   return `<!doctype html>
     <html lang="en">
     <head>
@@ -23,6 +24,7 @@ export default ({ content, data, bundles = [], helmet }: IInfo) => {
       <meta name="msapplication-config" content="none">
       ${helmet.title.toString()}
       ${helmet.meta.toString()}
+      ${styles}
     </head>
     <body ${helmet.bodyAttributes.toString()}>
       <div id="app">${content}</div>

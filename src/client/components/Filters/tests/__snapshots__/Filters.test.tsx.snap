@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters.tsx should render correctly 1`] = `
+<div>
+  <span
+    className="sc-bdVaJa bcQTER"
+  >
+    Some random title
+  </span>
+</div>
+`;

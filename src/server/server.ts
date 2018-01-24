@@ -14,7 +14,7 @@ import Routes from './handlerDev';
 import ProdRoutes from './handlerProd';
 import * as webpackDev from '../../config/webpack.dev.js';
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const app = express();
 const isProd = process.env.NODE_ENV === 'production';
 const isServer = process.env.NODE_ENV === 'server';
@@ -23,16 +23,39 @@ app.use(compression());
 app.use(helmet());
 app.use(cookieParser());
 
-process.on('uncaughtException', (err) => {
-  console.log(err);
-});
+process.stdin.resume(); // so the program will not close instantly
+
+function exitHandler(options: any, err: any) {
+  if (options.cleanup) {
+    console.log('clean');
+  }
+  if (err) {
+    console.log(err.stack);
+  }
+  if (options.exit) {
+    process.exit();
+  }
+}
+
+// do something when app is closing
+process.on('exit', exitHandler.bind(null, { cleanup: true }));
+
+// catches ctrl+c event
+process.on('SIGINT', exitHandler.bind(null, { exit: true }));
+
+// catches "kill pid" (for example: nodemon restart)
+process.on('SIGUSR1', exitHandler.bind(null, { exit: true }));
+process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
+
+// catches uncaught exceptions
+process.on('uncaughtException', exitHandler.bind(null, { exit: true }));
 
 app.get('/api/filters', (req: express.Request, res: express.Response) => {
-  console.log(req.url);
   const data = {
     success: true,
     message: null,
     content: {
+      url: req.url,
       adsTypes: [{ id: 1, title: 'First', slug: 'first' }, { id: 2, title: 'Second', slug: 'second' }],
       objectsTypes: [
         { id: 1, title: 'Some filter', slug: 'some-filter' },

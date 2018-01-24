@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { fetchFilters } from '../store/filters/actions';
-import { withError } from '../components/Errors/ErrorWrapper';
+// import { withError } from '../components/Errors/ErrorWrapper';
+import { ErrorBoundary } from '../components/Errors/ErrorBoundary';
+import Filters from '../components/Filters/Filters';
 
 interface IProps {
   filters: any;
@@ -33,11 +35,9 @@ class List extends React.Component<IProps, IState> {
     return (
       <div>
         <h1>Home page</h1>
-        {this.props.filters.map((filter: any) => (
-          <div key={filter.id}>
-            <span>{filter.title}</span>
-          </div>
-        ))}
+        <ErrorBoundary>
+          <Filters list={this.props.filters} />
+        </ErrorBoundary>
       </div>
     );
   }
@@ -45,4 +45,4 @@ class List extends React.Component<IProps, IState> {
 
 const mapStateToProps = (state: any) => ({ filters: state.filters.filters });
 
-export default withError(connect(mapStateToProps)(List));
+export default connect(mapStateToProps)(List);

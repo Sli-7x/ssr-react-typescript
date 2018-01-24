@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "export NODE_ENV=dev&& npm run clean && nodemon ./src/server/serverDev.ts",
     "prebuild": "rimraf dist && mkdir dist",
-    "build:client": "export NODE_ENV=production&& export BABEL_ENV=production&& npm run prebuild && webpack --config webpack.config.js ",
-    "build:server": "export NODE_ENV=server&& rimraf server.min.js && webpack --config webpack.config.js",
+    "build:client": "export NODE_ENV=production&& export BABEL_ENV=production&& npm run prebuild && webpack --config webpack.config.js",
+    "build:server": "export NODE_ENV=server&& npm run tslint && rimraf server.min.js && webpack --config webpack.config.js",
     "server": "export NODE_ENV=production&& nodemon ./src/server/server.ts",
     "clean": "rimraf dist && mkdir dist",
     "tslint": "tslint -c ./tslint.json -p ./tsconfig.json -t stylish",

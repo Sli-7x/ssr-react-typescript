@@ -12,6 +12,7 @@ import configureStore from '../client/core/configureStore';
 import routes from '../client/routes';
 import template from './template';
 import App from '../client/App';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { ssrCache, cacheMiddleware, getCacheKey } from './cacheMiddleware';
 
 const router = express.Router();
@@ -26,12 +27,12 @@ router.get('*', cacheMiddleware, async (req, res) => {
   const store = configureStore();
   const context: any = {};
   modules = [];
+  const sheet: any = new ServerStyleSheet();
 
   const promises = await routes.filter((route: any) => route.path === url).map(async (route) => {
     const component: any = route.component;
     if (component.preload && component.preload instanceof Function) {
       const data = await component.preload();
-
       const fetchData = data.default.fetchData;
       return fetchData instanceof Function ? fetchData({ store }) : Promise.resolve(null);
     }
@@ -45,9 +46,11 @@ router.get('*', cacheMiddleware, async (req, res) => {
     const appHtml = renderToString(
       <Loadable.Capture report={storas}>
         <Provider store={store}>
-          <StaticRouter location={req.url} context={context}>
-            <App />
-          </StaticRouter>
+          <StyleSheetManager sheet={sheet.instance}>
+            <StaticRouter location={req.url} context={context}>
+              <App />
+            </StaticRouter>
+          </StyleSheetManager>
         </Provider>
       </Loadable.Capture>,
     );
@@ -60,9 +63,10 @@ router.get('*', cacheMiddleware, async (req, res) => {
       return res.redirect(context.status, context.url);
     }
 
+    const styleTags = sheet.getStyleTags();
     const bundles = getBundles(stats, modules);
     const helmet = Helmet.renderStatic();
-    const html = template({ data: store.getState(), content: appHtml, bundles: bundles, helmet: helmet });
+    const html = template({ data: store.getState(), content: appHtml, bundles: bundles, helmet: helmet, styles: styleTags });
 
     if (context.status !== 404) {
       ssrCache.set(getCacheKey(req), html);

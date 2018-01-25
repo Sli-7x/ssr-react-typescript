@@ -16,7 +16,9 @@ declare global {
 }
 
 window.__INITIAL_STATE__ = window.__INITIAL_STATE__;
-const store = configureStore(window.__INITIAL_STATE__);
+const initaliState = window.__INITIAL_STATE__;
+delete window.__INITIAL_STATE__;
+const store = configureStore(initaliState);
 
 const renderApp = (Comp?: any) => {
   return hydrate(

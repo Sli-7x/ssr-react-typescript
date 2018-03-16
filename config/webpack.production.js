@@ -15,24 +15,24 @@ const plugins = () => {
       { from: 'static/images/*', to: `${distPath}/images/[name].[ext]` },
     ]),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor', // Specify the common bundle's name.
-      minChunks: Infinity,
-      filename: 'js/[name].js',
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor', // Specify the common bundle's name.
+    //   minChunks: Infinity,
+    //   filename: 'js/[name].js',
+    // }),
     new CheckerPlugin(),
     new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      comments: false,
-      compress: {
-        screw_ie8: true,
-        warnings: false,
-      },
-    }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   comments: false,
+    //   compress: {
+    //     screw_ie8: true,
+    //     warnings: false,
+    //   },
+    // }),
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
     }),
@@ -45,6 +45,7 @@ const plugins = () => {
 };
 
 module.exports = {
+  mode: 'production',
   devtool: 'source-map',
   entry: {
     client: ['./src/client/index'],

@@ -34,13 +34,15 @@
     "no-switch-case-fall-through": true,
     "no-submodule-imports": [false, "rxjs", "@src"],
     "no-trailing-whitespace": true,
+    "no-var-self": false,
     "no-this-assignment": [
-      true,
+      false,
       {
         "allow-destructuring": true
       }
     ],
     "jsx-no-multiline-js": false,
+    "jsx-no-string-ref": false,
     "object-literal-sort-keys": false,
     "object-literal-shorthand": false,
     "one-variable-per-declaration": [false],

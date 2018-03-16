@@ -15,11 +15,11 @@ const plugins = () => {
       { from: 'static/images/*', to: `${distPath}/images/[name].[ext]` },
     ]),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor', // Specify the common bundle's name.
-      minChunks: Infinity,
-      filename: 'js/[name].js',
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor', // Specify the common bundle's name.
+    //   minChunks: Infinity,
+    //   filename: 'js/[name].js',
+    // }),
     new webpack.HotModuleReplacementPlugin(),
     new CheckerPlugin(),
     new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
@@ -33,6 +33,7 @@ const plugins = () => {
 };
 
 module.exports = {
+  mode: 'development',
   devtool: 'eval', // eval
   entry: {
     client: ['webpack-hot-middleware/client?name=client', './src/client/index'],

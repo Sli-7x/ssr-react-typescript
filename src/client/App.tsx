@@ -25,7 +25,9 @@ export default class App extends React.Component {
           <meta name="description" content="moebel stuff, tables, kitchen, chairs" />
         </Helmet>
         <main className="content">
-          <Switch>{routes.map((val, i) => <Route {...val} key={i} />)}</Switch>
+          <Switch>
+            {routes.map((val: any, i) => <Route {...val} key={i} />)}
+          </Switch>
         </main>
         <Footer />
       </div>

@@ -14,6 +14,7 @@ import template from './template';
 import App from '../client/App';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import { ssrCache, cacheMiddleware, getCacheKey } from './cacheMiddleware';
+import { matchRoutes } from 'react-router-config';
 
 const router = express.Router();
 let stats: any = {};
@@ -29,22 +30,24 @@ router.get('*', cacheMiddleware, async (req, res) => {
   modules = [];
   const sheet: any = new ServerStyleSheet();
 
-  const promises = await routes.filter((route: any) => route.path === url).map(async (route) => {
-    const component: any = route.component;
+  const branch = matchRoutes(routes, url);
+
+  const promises = await branch.map(async (route) => {
+    const component: any = route.route.component;
     if (component.preload && component.preload instanceof Function) {
       const data = await component.preload();
       const fetchData = data.default.fetchData;
-      return fetchData instanceof Function ? fetchData({ store }) : Promise.resolve(null);
+      return fetchData instanceof Function ? fetchData({ store, req }) : Promise.resolve(null);
     }
 
     if (component.fetchData instanceof Function) {
-      return component.fetchData({ store, req, res });
+      return component.fetchData({ store, req });
     }
   });
 
   return Promise.all(promises).then(() => {
     const appHtml = renderToString(
-      <Loadable.Capture report={storas}>
+      <Loadable.Capture report={getModules}>
         <Provider store={store}>
           <StyleSheetManager sheet={sheet.instance}>
             <StaticRouter location={req.url} context={context}>
@@ -76,6 +79,6 @@ router.get('*', cacheMiddleware, async (req, res) => {
   });
 });
 
-const storas = (moduleName: string) => modules.push(moduleName);
+const getModules = (moduleName: string) => modules.push(moduleName);
 
 export default router;

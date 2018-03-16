@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 import configureStore from '../client/core/configureStore';
 import App from '../client/App';
 import routes from '../client/routes';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import template from './template';
+import { matchRoutes } from 'react-router-config';
 
 const router = express.Router();
 
@@ -15,27 +17,31 @@ router.get('*', async (req: express.Request, res: express.Response) => {
   const context: any = {};
   const url: string = req.url.split(/[?#]/)[0];
   const store = configureStore();
+  const sheet: any = new ServerStyleSheet();
 
-  const promises = await routes.filter((route: any) => route.path === url).map(async (route) => {
-    const component: any = route.component;
+  const branch = matchRoutes(routes, url);
+
+  const promises = await branch.map(async (route) => {
+    const component: any = route.route.component;
     if (component.preload && component.preload instanceof Function) {
       const data = await component.preload();
-
       const fetchData = data.default.fetchData;
-      return fetchData instanceof Function ? fetchData({ store }) : Promise.resolve(null);
+      return fetchData instanceof Function ? fetchData({ store, req }) : Promise.resolve(null);
     }
 
     if (component.fetchData instanceof Function) {
-      return component.fetchData({ store, req, res });
+      return component.fetchData({ store, req });
     }
   });
 
   return Promise.all(promises).then(() => {
     const appHtml = ReactDom.renderToString(
       <Provider store={store}>
-        <StaticRouter location={req.url} context={context}>
-          <App />
-        </StaticRouter>
+        <StyleSheetManager sheet={sheet.instance}>
+          <StaticRouter location={req.url} context={context}>
+            <App />
+          </StaticRouter>
+        </StyleSheetManager>
       </Provider>,
     );
 
@@ -47,8 +53,8 @@ router.get('*', async (req: express.Request, res: express.Response) => {
     }
 
     const helmet = Helmet.renderStatic();
-
-    const html = template({ content: appHtml, helmet: helmet, data: store.getState() });
+    const styleTags = sheet.getStyleTags();
+    const html = template({ content: appHtml, helmet: helmet, data: store.getState(), styles: styleTags });
 
     res.send(html);
   });

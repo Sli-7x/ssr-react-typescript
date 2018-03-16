@@ -2,11 +2,11 @@ import * as React from 'react';
 import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import configureStore from './core/configureStore';
-import App from './App';
 import * as Loadable from 'react-loadable';
-// import { renderRoutes } from 'react-router-config';
-// import routes from './routes';
+import { ThemeProvider } from 'styled-components';
+import configureStore from './core/configureStore';
+import { theme } from './core/theme';
+import App from './App';
 
 declare global {
   interface IWindow {
@@ -24,7 +24,9 @@ const renderApp = (Comp?: any) => {
   return hydrate(
     <Provider store={store}>
       <BrowserRouter>
-        <Comp />
+        <ThemeProvider theme={theme}>
+          <Comp />
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>,
     document.getElementById('app'),

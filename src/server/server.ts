@@ -27,10 +27,10 @@ process.stdin.resume(); // so the program will not close instantly
 
 function exitHandler(options: any, err: any) {
   if (options.cleanup) {
-    console.log('clean');
+    process.stdout.write('clean');
   }
   if (err) {
-    console.log(err.stack);
+    process.stdout.write(err.stack);
   }
   if (options.exit) {
     process.exit();
@@ -83,13 +83,13 @@ if (!isProd && !isServer) {
   app.use(webpackHotMiddleware(compiler));
   app.use('/', Routes);
   Loadable.preloadAll().then(() => {
-    app.listen(PORT, () => console.log('started port: ' + PORT));
+    app.listen(PORT, () => process.stdout.write(`Server started with port: ${PORT} \n`));
   });
 } else {
   app.use(express.static(path.join(__dirname, '..', '..', 'dist'), { redirect: false }));
   app.use('/', ProdRoutes);
 
   Loadable.preloadAll().then(() => {
-    app.listen(PORT, () => console.log('started production port: ' + PORT));
+    app.listen(PORT, () => process.stdout.write(`Started production with port: ${PORT} \n`));
   });
 }

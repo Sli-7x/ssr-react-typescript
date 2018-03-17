@@ -18,7 +18,7 @@
 * [x] code split*
 * [x] typescript
 * [x] styled-components
-* [ ] styled-components theme
+* [x] styled-components theme
 * [x] react router v4
 * [x] redux + redux-thunk
 * [x] express.js
@@ -26,6 +26,6 @@
 * [x] react-helmet
 * [x] tests
 * [ ] error component
-
+* [ ] wait for webpack 4 docs update and fix warnings 
 #### Notes
 *before running `npm run build:client`, need to change in tsconfig.json `module: "esnext"`for codesplit

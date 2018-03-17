@@ -1,0 +1,24 @@
+import * as React from 'react';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+  color: ${(props: { primary: boolean }) => (props.primary ? 'red' : '#1bb4ef')};
+  background: blue;
+  outline: none;
+  border: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  cursor: pointer;
+`;
+
+export interface IButtonProps {
+  onClick: () => void;
+  primary?: boolean;
+  children: any;
+}
+
+export const Button = ({ onClick = () => {}, primary = false, children }: IButtonProps) => (
+  <StyledButton primary={primary ? true : false} onClick={onClick}>
+    {children}
+  </StyledButton>
+);

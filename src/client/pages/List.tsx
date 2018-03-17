@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { fetchFilters } from '../store/filters/actions';
 // import { withError } from '../components/Errors/ErrorWrapper';
-import { ErrorBoundary } from '../components/Errors/ErrorBoundary';
-import Filters from '../components/Filters/Filters';
+import { ErrorBoundary } from '../components/errors/ErrorBoundary';
+import Filters from '../components/filters/Filters';
 
 interface IListProps {
   filters: any;

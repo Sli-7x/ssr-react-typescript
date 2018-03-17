@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import Header from './components/Header/Header';
-import Footer from './components/Footer/Footer';
+import Header from './components/header/Header';
+import Footer from './components/footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 // import Error404 from './components/Errors/Error404'
 // import RedirectWithStatus from './components/Errors/RedirectWithStatus'
@@ -25,9 +25,7 @@ export default class App extends React.Component {
           <meta name="description" content="react typescript ssr with code split" />
         </Helmet>
         <main className="content">
-          <Switch>
-            {routes.map((val: any, i) => <Route {...val} key={i} />)}
-          </Switch>
+          <Switch>{routes.map((val: any, i) => <Route {...val} key={i} />)}</Switch>
         </main>
         <Footer />
       </div>

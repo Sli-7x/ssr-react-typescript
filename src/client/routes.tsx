@@ -13,7 +13,7 @@ function loading(props: any) {
 }
 
 const Error404 = Loadable({
-  loader: () => import('./components/Errors/Error404'),
+  loader: () => import('./components/errors/Error404'),
   loading: loading,
   delay: 300,
 });

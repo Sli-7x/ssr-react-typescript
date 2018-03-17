@@ -22,7 +22,7 @@ export default class App extends React.Component {
         <Header />
         <Helmet>
           <title>Typescript react ssr</title>
-          <meta name="description" content="moebel stuff, tables, kitchen, chairs" />
+          <meta name="description" content="react typescript ssr with code split" />
         </Helmet>
         <main className="content">
           <Switch>

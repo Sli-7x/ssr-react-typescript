@@ -5,17 +5,17 @@ import { fetchFilters } from '../store/filters/actions';
 import { ErrorBoundary } from '../components/Errors/ErrorBoundary';
 import Filters from '../components/Filters/Filters';
 
-interface IProps {
+interface IListProps {
   filters: any;
   dispatch: any;
 }
 
-interface IState {
+interface IListState {
   fetchData: any;
 }
 
-class List extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
+class List extends React.Component<IListProps, IListState> {
+  constructor(props: IListProps) {
     super(props);
   }
 

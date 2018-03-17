@@ -1,7 +1,5 @@
-import * as fetch from 'isomorphic-fetch';
+import axios from 'axios';
 import Auth from './auth';
-
-const API_URL = 'http://localhost:3000/api/';
 
 const isWindow = typeof window !== 'undefined';
 
@@ -19,97 +17,44 @@ interface IImage {
   watermark: boolean | null;
 }
 
-export default {
-  // @todo logout if unauthorized
-  checkStatus(response: any) {
-    return response;
-    /*if (response.status >= 200 && response.status < 300) {
-      return response;
-    } else if (response.status === 401 || response.status === 403) {
-      return response;
-    } else {*/
-    /*var error = new Error(response.statusText)
-      error.response = response
-      // throw error*
-      return response;
-    }*/
-  },
+export default class Api {
+  private static baseUrl = 'http://localhost:3000/api/';
 
-  // Parse to json
-  parseJSON(response: any) {
-    return response.json();
-  },
+  public static get(url: string) {
+    return this.call(url, 'GET');
+  }
 
-  async call(url: string, data: any = {}, method: any) {
-    let token: string | null = null;
-    let currentUrl: string = url;
-
-    if (isWindow) {
-      token = JSON.stringify(Auth.getToken());
-    }
-
-    const headers: any = {
-      method: method.toUpperCase(),
-      credentials: 'same-origin', // 'include',
-      mode: 'cors',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
-        // 'fake-auth': btoa(JSON.stringify({ user: 'test', pass: 'somePassw0rd' })),
-      },
-    };
-
-    if (method.toUpperCase() !== 'GET' && method.toUpperCase() !== 'DELETE') {
-      headers.body = JSON.stringify(data);
-    } else {
-      if (data != null) {
-        if (Object.keys(data).length > 0) {
-          currentUrl += `?${this.objToQuery(data)}`;
-        }
-      }
-    }
-
-    try {
-      return await fetch(API_URL + currentUrl, headers)
-        .then(this.checkStatus)
-        .then(this.parseJSON);
-    } catch (err) {
-      return Promise.reject(err);
-    }
-  },
-
-  get(url: string, data?: any) {
-    return this.call(url, data, 'GET');
-  },
-
-  // POST method
-  post(url: string, data: any) {
-    return this.call(url, data, 'POST');
-  },
+  public static post(url: string, data: any) {
+    return this.call(url, 'POST', data);
+  }
 
   // PUT method
-  put(url: string, data: any) {
-    return this.call(url, data, 'PUT');
-  },
+  public static put(url: string, data: any) {
+    return this.call(url, 'PUT', data);
+  }
 
-  // DELETE method
-  delete(url: string, data?: any) {
-    return this.call(url, data, 'DELETE');
-  },
+  public static delete(url: string, data?: any) {
+    return this.call(url, 'DELETE', data);
+  }
 
-  alias(str: string) {
+  public static alias(str: string) {
     return str
       .replace(/[^a-zA-Z ]/g, '')
       .toLocaleLowerCase()
       .replace(/\s+/g, '-');
-  },
+  }
 
-  makeQuery(data: any) {
+  /**
+   * Make query string from object
+   */
+  public static makeQuery(data: any) {
     return this.objToQuery(data);
-  },
+  }
 
-  objToQuery(data: any, without: any | any[] = null) {
+  /**
+   * Make query string from object
+   */
+  public static objToQuery(data: any, without: any | any[] = null) {
     const array = [];
 
     for (const i in data) {
@@ -126,16 +71,12 @@ export default {
     }
 
     return array.join('&');
-  },
+  }
 
   /**
    * Make query string to object
-   *
-   * @param string query
-   * @param string without // query param name
-   * @return Object
    */
-  queryToObj(query: string, without: any = null) {
+  public static queryToObj(query: string, without: any = null) {
     if (query.trim() === '') {
       return null;
     }
@@ -155,15 +96,21 @@ export default {
     }
 
     return objectKeyVal;
-  },
+  }
 
-  removeFromQuery(query: any, name: string | null = null) {
+  /**
+   * Remove passed param(name) from query string
+   */
+  public static removeFromQuery(query: any, name: string | null = null) {
     const obj = this.queryToObj(query, name);
 
     return this.objToQuery(obj);
-  },
+  }
 
-  getParameterByName(name: string, url: string) {
+  /**
+   * Get parameter from query string
+   */
+  public static getParameterByName(name: string, url: string) {
     let newUrl = url;
     let newName = name;
 
@@ -188,24 +135,81 @@ export default {
     }
 
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  },
+  }
 
-  // Get image
-  image(data: IImage | null = { w: null, h: null, path: '', img: null, watermark: null }) {
+  /**
+   * Get image url
+   */
+  public static image(data: IImage | null = { w: null, h: null, path: '', img: null, watermark: null }) {
     if (data == null || typeof data !== 'object' || data.img == null || data.img === '') {
       return '';
     }
 
-    const path = btoa(`?path=${data.path}&w=${data.w}&h=${data.h}&img=${data.img}${data.watermark === true ? '&watermark=1' : ''}`);
+    const path = btoa(
+      `?path=${data.path}&w=${data.w}&h=${data.h}&img=${data.img}${data.watermark === true ? '&watermark=1' : ''}`,
+    );
 
-    return `${API_URL}images/${path}`;
-  },
+    return `${this.baseUrl}images/${path}`;
+  }
 
-  encode(str: string) {
+  /**
+   * Encode string
+   */
+  public static encode(str: string) {
     return btoa(str);
-  },
+  }
 
-  decode(str: string) {
+  /**
+   * Decode string
+   */
+  public static decode(str: string) {
     return JSON.parse(atob(str));
-  },
-};
+  }
+
+  /**
+   * Check response status
+   * @todo errors & auth (401-403)
+   */
+  private static checkStatus(response: any) {
+    if (response.status >= 200 && response.status < 300) {
+      return response.data;
+    }
+
+    return response;
+    /*if (response.status >= 200 && response.status < 300) {
+      return response;
+    } else if (response.status === 401 || response.status === 403) {
+      return response;
+    } else {*/
+    /*var error = new Error(response.statusText)
+      error.response = response
+      // throw error*
+      return response;
+    }*/
+  }
+
+  /**
+   * Call to api server
+   */
+  private static call(url: string, method: string, data?: any) {
+    let AUTH_TOKEN: string | null = null;
+
+    if (isWindow) {
+      AUTH_TOKEN = JSON.stringify(Auth.getToken());
+    }
+
+    axios.defaults.baseURL = this.baseUrl;
+    axios.defaults.headers.common.Authorization = `Bearer ${AUTH_TOKEN}`;
+
+    try {
+      return axios({
+        method: method,
+        url: url,
+        data: data,
+        withCredentials: false,
+      }).then(this.checkStatus);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  }
+}

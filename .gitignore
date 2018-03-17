@@ -8,13 +8,13 @@ npm-debug.log
 /coverage
 server.min.js
 now.json
+package-lock.json
 
 # Local development
 *.env
 *.dev
 .directory
 .DS_Store
-.package-lock.json
 
 # Docker
 Dockerfile

@@ -1,4 +1,8 @@
 {
+  "eslint.enable": false,
+  "tslint.enable": true,
+  "tslint.alwaysShowStatus": true,
+  "editor.formatOnSave": true,
   "editor.snippetSuggestions": "top",
   "editor.fontSize": 14,
   "editor.fontWeight": "100",
@@ -31,7 +35,5 @@
   "prettier.trailingComma": "all",
   "prettier.useTabs": false,
   "prettier.arrowParens": "always",
-  "editor.rulers": [
-    120
-  ]
+  "editor.rulers": [120]
 }

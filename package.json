@@ -1,22 +1,26 @@
 {
   "name": "ssr",
   "version": "1.0.0",
+  "author": "Sli-7x",
+  "license": "ISC",
   "description": "",
   "main": "index.js",
+  "repository": "https://github.com/Sli-7x/ssr-react-typescript",
   "scripts": {
     "dev": "export NODE_ENV=dev&& npm run clean && nodemon ./src/server/serverDev.ts",
     "prebuild": "rimraf dist && mkdir dist",
-    "build:client": "export NODE_ENV=production&& export BABEL_ENV=production&& npm run prebuild && webpack --config webpack.config.js",
-    "build:server": "export NODE_ENV=server&& npm run tslint && rimraf server.min.js && webpack --config webpack.config.js",
+    "build:client":
+      "export NODE_ENV=production&& export BABEL_ENV=production&& npm run prebuild && webpack --config webpack.config.js",
+    "build:server":
+      "export NODE_ENV=server&& npm run tslint && rimraf server.min.js && webpack --config webpack.config.js",
     "start": "export NODE_ENV=production&& nodemon ./src/server/server.ts",
     "clean": "rimraf dist && mkdir dist",
     "tslint": "tslint -c ./tslint.json -p ./tsconfig.json -t stylish",
     "test": "export NODE_ENV=test&& jest --watch --no-cache",
     "test:coverage": "export NODE_ENV=test&& jest --coverage"
   },
-  "author": "Sli-7x",
-  "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "cookie-parser": "^1.4.3",
     "helmet": "^3.12.0",
     "react": "^16.2.0",
@@ -30,6 +34,7 @@
     "redux-thunk": "2.2.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/compression": "0.0.36",
     "@types/cookie-parser": "^1.4.1",
     "@types/dotenv": "^4.0.2",
@@ -37,7 +42,6 @@
     "@types/express": "^4.11.1",
     "@types/helmet": "0.0.37",
     "@types/ignore-styles": "^5.0.0",
-    "@types/isomorphic-fetch": "0.0.34",
     "@types/jest": "^22.2.0",
     "@types/lru-cache": "^4.1.0",
     "@types/node": "^9.4.7",
@@ -68,7 +72,6 @@
     "enzyme-adapter-react-16": "^1.1.1",
     "express": "^4.16.3",
     "file-loader": "^1.1.11",
-    "isomorphic-fetch": "^2.2.1",
     "jest": "^22.4.2",
     "jest-styled-components": "^5.0.0",
     "lru-cache": "^4.1.2",
@@ -95,20 +98,12 @@
     "webpack-node-externals": "^1.6.0"
   },
   "jest": {
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
+    "moduleFileExtensions": ["ts", "tsx", "js"],
     "transform": {
       "^.+\\.(ts|tsx)$": "ts-jest"
     },
-    "testMatch": [
-      "**/tests/*.test.(ts|tsx|js)"
-    ],
-    "setupFiles": [
-      "<rootDir>config/jest/bootstrap.js"
-    ],
+    "testMatch": ["**/tests/*.spec.(ts|tsx|js)"],
+    "setupFiles": ["<rootDir>config/jest/bootstrap.js"],
     "collectCoverageFrom": [
       "src/client/**/*.tsx",
       "!src/client/index.tsx",
@@ -121,7 +116,6 @@
     "moduleNameMapper": {
       "^.+\\.s?css$": "identity-obj-proxy"
     },
-    "mapCoverage": true,
     "coverageDirectory": "./coverage/"
   }
 }

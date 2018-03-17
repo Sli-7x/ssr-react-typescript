@@ -33,7 +33,6 @@ export default ({ content, data, bundles = [], helmet, styles = '' }: IInfo) => 
       <script src="/js/client.js"></script>
       ${bundles.map((bundle: any) => (bundle ? `<script src="/${bundle.file}"></script>` : '')).join('\n')}
       ${'<script>window.main();</script>'}
-      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" />
       <link href="/css/global.css" rel="stylesheet" />
     </body>
     </html>`;

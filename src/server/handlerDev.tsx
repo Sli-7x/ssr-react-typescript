@@ -54,7 +54,7 @@ router.get('*', async (req: express.Request, res: express.Response) => {
 
     const helmet = Helmet.renderStatic();
     const styleTags = sheet.getStyleTags();
-    const html = template({ content: appHtml, helmet: helmet, data: store.getState(), styles: styleTags });
+    const html = template({ helmet, content: appHtml, data: store.getState(), styles: styleTags });
 
     res.send(html);
   });

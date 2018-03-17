@@ -203,9 +203,9 @@ export default class Api {
 
     try {
       return axios({
-        method: method,
-        url: url,
-        data: data,
+        method,
+        url,
+        data,
         withCredentials: false,
       }).then(this.checkStatus);
     } catch (err) {

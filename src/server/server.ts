@@ -14,7 +14,8 @@ import Routes from './handlerDev';
 import ProdRoutes from './handlerProd';
 import * as webpackDev from '../../config/webpack.dev.js';
 
-const PORT = process.env.PORT || 3000;
+const normalizePort = (port: string) => parseInt(port, 10);
+const PORT = normalizePort(process.env.PORT || '3000');
 const app = express();
 const isProd = process.env.NODE_ENV === 'production';
 const isServer = process.env.NODE_ENV === 'server';

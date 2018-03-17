@@ -13,20 +13,20 @@ function loading(props: any) {
 }
 
 const Error404 = Loadable({
+  loading,
   loader: () => import('./components/errors/Error404'),
-  loading: loading,
   delay: 300,
 });
 
 const About = Loadable({
+  loading,
   loader: () => import('./pages/About'),
-  loading: loading,
   delay: 300,
 });
 
 const List = Loadable({
+  loading,
   loader: () => import('./pages/List'),
-  loading: loading,
   delay: 300,
 });
 

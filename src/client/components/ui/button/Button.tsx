@@ -17,8 +17,8 @@ export interface IButtonProps {
   children: any;
 }
 
-export const Button = ({ onClick = () => {}, primary = false, children }: IButtonProps) => (
-  <StyledButton primary={primary ? true : false} onClick={onClick}>
+export const Button = ({ onClick, primary = false, children }: IButtonProps) => (
+  <StyledButton primary={primary} onClick={onClick}>
     {children}
   </StyledButton>
 );

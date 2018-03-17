@@ -69,7 +69,7 @@ router.get('*', cacheMiddleware, async (req, res) => {
     const styleTags = sheet.getStyleTags();
     const bundles = getBundles(stats, modules);
     const helmet = Helmet.renderStatic();
-    const html = template({ data: store.getState(), content: appHtml, bundles: bundles, helmet: helmet, styles: styleTags });
+    const html = template({ bundles, helmet, data: store.getState(), content: appHtml, styles: styleTags });
 
     if (context.status !== 404) {
       ssrCache.set(getCacheKey(req), html);

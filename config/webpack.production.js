@@ -48,7 +48,7 @@ module.exports = {
   mode: 'production',
   devtool: 'source-map',
   entry: {
-    client: ['./src/client/index'],
+    client: './src/client/index',
     vendor: ['react', 'react-dom', 'react-router-dom', 'react-redux', 'react-router', 'redux', 'redux-thunk'],
   },
 

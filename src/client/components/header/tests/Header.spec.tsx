@@ -6,7 +6,13 @@ import { StaticRouter } from 'react-router';
 
 describe('Footer.tsx', () => {
   it('should render correctly', () => {
-    const tree = renderer.create(<StaticRouter context={{}}><Header /></StaticRouter>).toJSON();
+    const tree = renderer
+      .create(
+        <StaticRouter context={{}}>
+          <Header />
+        </StaticRouter>,
+      )
+      .toJSON();
     expect(tree).toMatchSnapshot();
   });
 

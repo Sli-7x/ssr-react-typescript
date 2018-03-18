@@ -3,9 +3,7 @@ import { hydrate } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import * as Loadable from 'react-loadable';
-import { ThemeProvider } from 'styled-components';
 import configureStore from './core/configureStore';
-import { theme } from './core/theme';
 import App from './App';
 
 declare global {
@@ -24,9 +22,7 @@ const renderApp = (Comp?: any) => {
   return hydrate(
     <Provider store={store}>
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <Comp />
-        </ThemeProvider>
+        <Comp />
       </BrowserRouter>
     </Provider>,
     document.getElementById('app'),

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { fetchFilters } from '../../store/filters/actions';
+import { fetchFilters } from '../../redux/filters';
 import { ErrorBoundary } from '../../components/errors/ErrorBoundary';
 import { Filters } from '../../components/filters/Filters';
 

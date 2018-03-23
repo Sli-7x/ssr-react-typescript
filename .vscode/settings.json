@@ -34,7 +34,7 @@
   "prettier.tabWidth": 2,
   "prettier.trailingComma": "all",
   "prettier.useTabs": false,
-  "prettier.arrowParens": "avoid",
+  "prettier.arrowParens": "always",
   "prettier.jsxBracketSameLine": false,
   "editor.rulers": [120]
 }

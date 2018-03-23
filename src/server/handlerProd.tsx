@@ -8,7 +8,7 @@ import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import * as Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
-import configureStore from '../client/core/configureStore';
+import configureStore from '../client/redux/configureStore';
 import routes from '../client/routes';
 import template from './template';
 import App from '../client/App';

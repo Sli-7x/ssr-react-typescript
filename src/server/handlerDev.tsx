@@ -4,7 +4,7 @@ import * as ReactDom from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Provider } from 'react-redux';
-import configureStore from '../client/core/configureStore';
+import configureStore from '../client/redux/configureStore';
 import App from '../client/App';
 import routes from '../client/routes';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';

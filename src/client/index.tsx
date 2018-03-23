@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import * as Loadable from 'react-loadable';
 import { ThemeProvider } from 'styled-components';
-import configureStore from './core/configureStore';
+import configureStore from './redux/configureStore';
 import App from './App';
 import { theme } from './core/theme';
 

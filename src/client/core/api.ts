@@ -1,4 +1,5 @@
 import axios from 'axios';
+import config from './config';
 import Auth from './auth';
 
 const isWindow = typeof window !== 'undefined';
@@ -18,7 +19,7 @@ interface IImage {
 }
 
 export default class Api {
-  private static baseUrl = 'http://localhost:3000/api/';
+  private static baseUrl = config.apiUrl;
 
   public static get(url: string) {
     return this.call(url, 'GET');

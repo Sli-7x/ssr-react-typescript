@@ -5,3 +5,9 @@ exports[`Error404.tsx should render correctly 1`] = `
   Sorry, can’t find that. 404
 </h1>
 `;
+
+exports[`Error404.tsx should render correctly when staticContext not passed 1`] = `
+<h1>
+  Sorry, can’t find that. 404
+</h1>
+`;

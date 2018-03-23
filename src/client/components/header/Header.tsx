@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-class Header extends React.Component {
+export interface IHeaderProps {}
+
+export class Header extends React.Component<IHeaderProps, any> {
   render() {
     return (
       <div id="header">
@@ -12,5 +14,3 @@ class Header extends React.Component {
     );
   }
 }
-
-export default Header;

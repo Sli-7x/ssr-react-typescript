@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import { withError } from '../components/errors/ErrorWrapper';
-import { Button } from '../components/ui/button/Button';
+import { withError } from '../../components/errors/ErrorWrapper';
+import { Button } from '../../shared/button/Button';
 
 interface IProps {
   fetchData?: void;

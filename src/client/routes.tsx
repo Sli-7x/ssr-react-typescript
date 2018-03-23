@@ -20,13 +20,13 @@ const Error404 = Loadable({
 
 const About = Loadable({
   loading,
-  loader: () => import('./pages/About'),
+  loader: () => import('./pages/about/About'),
   delay: 300,
 });
 
 const List = Loadable({
   loading,
-  loader: () => import('./pages/List'),
+  loader: () => import('./pages/list/List'),
   delay: 300,
 });
 

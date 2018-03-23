@@ -8,6 +8,17 @@ describe('Error404.tsx', () => {
     const filledTree = renderer
       .create(
         <StaticRouter location="/asd" context={{}}>
+          <Error404 staticContext={{ status: 404 }} />
+        </StaticRouter>,
+      )
+      .toJSON();
+    expect(filledTree).toMatchSnapshot();
+  });
+
+  it('should render correctly when staticContext not passed', () => {
+    const filledTree = renderer
+      .create(
+        <StaticRouter location="/asd" context={{}}>
           <Error404 />
         </StaticRouter>,
       )

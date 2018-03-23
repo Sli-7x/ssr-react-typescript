@@ -17,7 +17,7 @@ export interface IButtonProps {
   children: any;
 }
 
-export const Button = ({ onClick, primary = false, children }: IButtonProps) => (
+export const Button: React.StatelessComponent<IButtonProps> = ({ onClick, primary = false, children }) => (
   <StyledButton primary={primary} onClick={onClick}>
     {children}
   </StyledButton>

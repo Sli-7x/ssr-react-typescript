@@ -105,6 +105,7 @@
     "testMatch": ["**/tests/*.spec.(ts|tsx|js)"],
     "setupFiles": ["<rootDir>config/jest/bootstrap.js"],
     "collectCoverageFrom": [
+      "src/client/**/*.ts",
       "src/client/**/*.tsx",
       "!src/client/index.tsx",
       "!src/client/routes.tsx",

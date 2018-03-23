@@ -9,10 +9,8 @@ const date = () => {
   return new Date().getFullYear();
 };
 
-const Footer = () => (
+export const Footer = () => (
   <div id="footer">
     <Text>&copy; {date()}</Text>
   </div>
 );
-
-export default Footer;

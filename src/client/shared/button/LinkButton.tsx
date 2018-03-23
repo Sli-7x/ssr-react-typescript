@@ -7,16 +7,14 @@ export interface ILinkButtonProps {
   style?: Partial<{ [key: string]: any }>;
 }
 
-const defaultProps = {
+export const LinkButton: React.StatelessComponent<ILinkButtonProps> = props => (
+  <Link to={props.url} style={{ ...props.style }}>
+    {props.children}
+  </Link>
+);
+
+LinkButton.defaultProps = {
   children: '',
   url: '/',
   style: {},
-};
-
-export default (props: ILinkButtonProps = defaultProps) => {
-  return (
-    <Link to={props.url} style={{ ...props.style }}>
-      {props.children}
-    </Link>
-  );
 };

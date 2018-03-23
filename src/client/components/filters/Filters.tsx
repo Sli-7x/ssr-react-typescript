@@ -9,7 +9,7 @@ const Title = styled.span`
   color: #555;
 `;
 
-export default class Filters extends React.Component<IFiltersProps, any> {
+export class Filters extends React.Component<IFiltersProps, any> {
   render() {
     return (
       <>

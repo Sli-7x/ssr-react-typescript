@@ -13,6 +13,6 @@ export let config: IConfig = {
 
 // Load all translations files
 export const translates: any = {
-  lt: require('../locales/lt/index').default,
+  lt: require('../../../locales/lt/index').default,
   // en: require('./lang/lt/index.js').default
 };

@@ -35,6 +35,6 @@
   "prettier.trailingComma": "all",
   "prettier.useTabs": false,
   "prettier.arrowParens": "avoid",
-  "prettier.jsxBracketSameLine": true,
+  "prettier.jsxBracketSameLine": false,
   "editor.rulers": [120]
 }

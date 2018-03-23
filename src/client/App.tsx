@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
-import Header from './components/header/Header';
-import Footer from './components/footer/Footer';
+import { Header } from './components/header/Header';
+import { Footer } from './components/footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { ThemeProvider } from 'styled-components';

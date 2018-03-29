@@ -26,7 +26,7 @@ const About = Loadable({
 
 const List = Loadable({
   loading,
-  loader: () => import('./pages/list/List'),
+  loader: () => import('./pages/list/ListPage'),
   delay: 300,
 });
 

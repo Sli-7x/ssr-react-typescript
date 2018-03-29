@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { withError } from '../../components/errors/ErrorWrapper';
 import { Button } from '../../shared/button/Button';
+import { t } from '../../core';
 
 interface IProps {
   fetchData?: void;
@@ -26,7 +27,7 @@ class About extends React.Component<IProps, any> {
     return (
       <div>
         <Helmet>
-          <title>Typescript react ssr | About</title>
+          <title>{t('web.title', { title: 'About' })}</title>
         </Helmet>
         ABOUT US
         <Button onClick={this.onClick}>Click me</Button>

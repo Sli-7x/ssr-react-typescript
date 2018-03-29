@@ -1,5 +1,9 @@
 import { config, translates } from './config';
 
+interface IObj {
+  [key: string]: string;
+}
+
 export const Translator = {
   // set config
   /*config(options: any) {
@@ -49,31 +53,33 @@ export const Translator = {
 };
 
 // Find recursive object e.g. {a: {b: 'some text'}}
-const recursive = (obj: any, key: string) => {
-  return obj && obj[key] ? obj[key] : null;
+const recursive = (obj: IObj, key: string) => {
+  return obj && obj[key] ? obj[key] : '';
 };
 
 // Translate function
-export const t = (key: any, params: any = {}): any => {
+export const t = (key: string, params: IObj = {}) => {
   const obj = translates[Translator.current()];
   const array = key.split('.');
-  let newObj = obj;
+  let newObj: any = obj;
 
   if (array.length > 0) {
-    array.map((val: any) => {
-      // eslint-disable-line
-      newObj = recursive(newObj, val);
+    array.map((value: string) => {
+      newObj = recursive(newObj, value);
     });
   }
 
   // check if exists 'params' and 'newObj' is a String
-  if ((newObj != null && Object.keys(params).length > 0 && typeof newObj === 'string') || newObj instanceof String) {
+  if (newObj !== null && Object.keys(params).length > 0 && typeof newObj === 'string') {
     Object.keys(params).map((i: any) => {
-      newObj = newObj.replace(':' + i, params[i]);
+      newObj = newObj.replace(':' + i, params[i]).replace(':#' + i, params[i]);
     });
-
-    return newObj;
   }
 
-  return newObj != null && newObj !== undefined ? newObj : key;
+  // Remove param if it`s not required (:#)
+  if (newObj !== null && newObj !== undefined) {
+    return newObj.replace(/:#(\w+)/g, '').trim();
+  }
+
+  return key;
 };

@@ -202,15 +202,12 @@ export default class Api {
     axios.defaults.baseURL = this.baseUrl;
     axios.defaults.headers.common.Authorization = `Bearer ${AUTH_TOKEN}`;
 
-    try {
-      return axios({
-        method,
-        url,
-        data,
-        withCredentials: false,
-      }).then(this.checkStatus);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return axios({
+      method,
+      url,
+      data,
+      withCredentials: false,
+    }).then(this.checkStatus);
+    // .catch((err: Error) => console.log('api error', err));
   }
 }

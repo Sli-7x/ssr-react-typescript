@@ -5,7 +5,7 @@ import { Footer } from './components/footer/Footer';
 import { Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './core/theme';
+import { theme, t } from './core';
 // import Error404 from './components/Errors/Error404'
 // import RedirectWithStatus from './components/Errors/RedirectWithStatus'
 /*
@@ -23,7 +23,7 @@ export default class App extends React.Component {
         <div id="wrapper">
           <Header />
           <Helmet>
-            <title>Typescript react ssr</title>
+            <title>{t('web.title')}</title>
             <meta name="description" content="react typescript ssr with code split" />
           </Helmet>
           <main className="content">
